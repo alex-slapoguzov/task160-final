@@ -1,78 +1,118 @@
 package by.issoft.training.pages;
 
+import by.issoft.training.util.Random;
 import by.issoft.training.util.Waiter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailPage extends Page {
 
-    @FindBy(xpath = "//a[@class=\"gb_me gb_dc gb_De\"]")
-    private WebElement gmailTitleNode;
+	@FindBy(xpath = "//a[@class=\"gb_me gb_dc gb_De\"]")
+	private WebElement gmailTitleNode;
 
-    @FindBy(xpath = "//div[@class='gb_Qc gb_ib gb_Sg gb_R']/a")
-    private WebElement userAccountButton;
+	@FindBy(xpath = "//div[@class='gb_Qc gb_ib gb_Sg gb_R']/a")
+	private WebElement userAccountButton;
 
-    @FindBy(id = "gb_71")
-    private WebElement signOutButton;
+	@FindBy(id = "gb_71")
+	private WebElement signOutButton;
 
-    @FindBy(xpath = "//div[@class=\"T-I J-J5-Ji T-I-KE L3\"]")
-    private WebElement composeButton;
+	@FindBy(xpath = "//div[@class=\"T-I J-J5-Ji T-I-KE L3\"]")
+	private WebElement composeButton;
 
-    @FindBy(xpath = "//div[@class=\"wO nr l1\"]/textarea")
-    private WebElement recipientsField;
+	@FindBy(xpath = "//div[@class=\"wO nr l1\"]/textarea")
+	private WebElement recipientsField;
 
-    @FindBy(xpath = "//div[@class=\"T-I J-J5-Ji aoO T-I-atl L3\"]")
-    private WebElement sendButton;
+	@FindBy(xpath = "//div[@class=\"T-I J-J5-Ji aoO T-I-atl L3\"]")
+	private WebElement sendButton;
 
-    @FindBy(xpath = "//div[@class=\"aoD az6\"]/input")
-    private WebElement subjectField;
+	@FindBy(xpath = "//div[@class=\"aoD az6\"]/input")
+	private WebElement subjectField;
 
-    private final static String subjectText = "Final task";
+	@FindBy(xpath = "//table[@class=\"F cf zt\"]//tr")
+	private List<WebElement> listWithLettersInInboxFolder;
 
-    public MailPage() {
-        super();
-    }
+	@FindBy(id = "link_undo")
+	private WebElement undoLink;
 
-    public boolean isMailPage() {
-        if (Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(userAccountButton)).isDisplayed()
-                && Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(gmailTitleNode)).isDisplayed()) {
-            return true;
-        } else return false;
-    }
+	@FindBy(xpath = "//a[text()='Sent']")
+	private WebElement sentFolderLink;
 
-    public LoginPage logout() {
-        userAccountButton.click();
-        Waiter.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(signOutButton));
-        signOutButton.click();
+	private final static By EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//div[@class=\"yW\"]//span[@class=\"yP\"]");
+	private final static By SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//div[@class=\"xS\"]//span[@class=\"bog\"]");
+	private final static String subject = "Subject+";
+	private final static String subjectText = Random.randomizeSubject(subject);
 
-        return new LoginPage();
-    }
+	public MailPage() {
+		super();
+	}
 
-    public void clickComposeButton(){
-        composeButton.click();
-    }
+	public boolean isMailPage() {
+		if (Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(userAccountButton)).isDisplayed()
+				&& Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(gmailTitleNode)).isDisplayed()) {
+			return true;
+		} else return false;
+	}
 
-    public void typeMailInRecipientsField(String user){
-        String email = user + "@gmail.com";
-        recipientsField.click();
-        recipientsField.sendKeys(email);
-    }
+	public LoginPage logout() {
+		userAccountButton.click();
+		Waiter.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(signOutButton));
+		signOutButton.click();
 
-    public void typeSubjectInSubjectField(){
-      //  subjectField.click();
-        subjectField.sendKeys(subjectText);
-    }
+		return new LoginPage();
+	}
 
-    public void clickSendButton(){
-        sendButton.click();
-    }
+	public void clickComposeButton() {
+		composeButton.click();
+	}
 
-    public void sendEmailToUser(String user){
-        clickComposeButton();
-        Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(recipientsField));
-        typeMailInRecipientsField(user);
-        typeSubjectInSubjectField();
-        clickSendButton();
-    }
+	public void typeMailInRecipientsField(String user) {
+		String email = user + "@gmail.com";
+		recipientsField.click();
+		recipientsField.sendKeys(email);
+	}
+
+	public void typeSubjectInSubjectField() {
+		subjectField.sendKeys(subjectText);
+	}
+
+	public void clickSendButton() {
+		sendButton.click();
+	}
+
+	public void sendEmailToUser(String user) {
+		clickComposeButton();
+		Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(recipientsField));
+		typeMailInRecipientsField(user);
+		typeSubjectInSubjectField();
+		clickSendButton();
+	}
+
+	public boolean isLetterHasCame(String mail) {
+		List<WebElement> letterWithGivenEmailAndSubjectList = new ArrayList<WebElement>();
+		String gmailEmail = mail + "@gmail.com";
+
+		for (WebElement element : listWithLettersInInboxFolder) {
+			if (element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX).getAttribute("email").equals(gmailEmail)
+					&& element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX).getText().equals(subjectText)) {
+				letterWithGivenEmailAndSubjectList.add(element);
+			}
+		}
+
+		if (letterWithGivenEmailAndSubjectList.size() > 1) {
+			return true;
+		} else return false;
+	}
+
+	public void waitUndoLinkDisappears() {
+		Waiter.getWebDriverWait().until(ExpectedConditions.invisibilityOf(undoLink));
+	}
+
+	public void clickSentFolderLink() {
+		sentFolderLink.click();
+	}
 }

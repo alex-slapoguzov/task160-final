@@ -9,7 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class VerifyTheAbilityToSendEmailsTest {
+public class VerifyThatSentEmailAppearsInSentMailFolderTest {
 
 	private LoginPage loginPage;
 	private MailPage mailPage;
@@ -21,18 +21,14 @@ public class VerifyTheAbilityToSendEmailsTest {
 		Driver.openHomePage();
 	}
 
-	@Test(dataProvider = "verifyTheAbilityToSendEmails", dataProviderClass = DataProviders.class)
-	public void verifyTheAbilityToSendEmailsTest(String emailUser_1, String passwordUser_1,
-												 String emailUser_2, String passwordUser_2) {
+	@Test(dataProvider = "verifyThatSentEmailAppearsInSentMailFolder", dataProviderClass = DataProviders.class)
+	public void verifyThatSentEmailAppearsInSentMailFolderTest(String emailUser_1, String passwordUser_1, String emailUser_2) {
 		loginPage.login(emailUser_1, passwordUser_1);
 		mailPage.isMailPage();
 		mailPage.sendEmailToUser(emailUser_2);
 		mailPage.waitUndoLinkDisappears();
-		mailPage.logout();
-		loginPage.isLoginPage();
-		loginPage.loginAfterLogout(emailUser_2, passwordUser_2);
-		mailPage.isMailPage();
-		Assert.assertTrue(mailPage.isLetterHasCame(emailUser_1), "Letter hasn't came!");
+		mailPage.clickSentFolderLink();
+		Assert.assertTrue(mailPage.isLetterHasCame(emailUser_2), "Sent email is not in the sent mail folder!");
 	}
 
 	@AfterMethod(alwaysRun = true)
