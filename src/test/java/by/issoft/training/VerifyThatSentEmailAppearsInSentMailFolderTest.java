@@ -28,7 +28,7 @@ public class VerifyThatSentEmailAppearsInSentMailFolderTest {
 		mailPage.sendEmailToUser(emailUser_2);
 		mailPage.waitUndoLinkDisappears();
 		mailPage.clickSentFolderLink();
-		Assert.assertTrue(mailPage.isLetterHasCame(emailUser_2), "Sent email is not in the sent mail folder!");
+		Assert.assertTrue(mailPage.isLetterHasSent(emailUser_2), "Sent email is not in the sent mail folder!");
 	}
 
 	@AfterMethod(alwaysRun = true)

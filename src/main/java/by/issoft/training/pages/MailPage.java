@@ -44,6 +44,8 @@ public class MailPage extends Page {
 
 	private final static By EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//div[@class=\"yW\"]//span[@class=\"yP\"]");
 	private final static By SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//div[@class=\"xS\"]//span[@class=\"bog\"]");
+	private final static By EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT = By.xpath("//div[@class=\"yW\"]/span");
+	private final static By SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT = By.xpath("//div[@class=\"xS\"]//span[@class=\"bog\"]");
 	private final static String subject = "Subject+";
 	private final static String subjectText = Random.randomizeSubject(subject);
 
@@ -99,6 +101,23 @@ public class MailPage extends Page {
 		for (WebElement element : listWithLettersInInboxFolder) {
 			if (element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX).getAttribute("email").equals(gmailEmail)
 					&& element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX).getText().equals(subjectText)) {
+				letterWithGivenEmailAndSubjectList.add(element);
+			}
+		}
+
+		if (letterWithGivenEmailAndSubjectList.size() > 1) {
+			return true;
+		} else return false;
+	}
+
+	public boolean isLetterHasSent(String mail) {
+		List<WebElement> letterWithGivenEmailAndSubjectList = new ArrayList<WebElement>();
+		String gmailEmail = mail + "@gmail.com";
+
+		for (WebElement element : listWithLettersInInboxFolder) {
+			if (//element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getAttribute("email").equals(gmailEmail)
+					//&&
+			element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getText().equals(subjectText)) {
 				letterWithGivenEmailAndSubjectList.add(element);
 			}
 		}
