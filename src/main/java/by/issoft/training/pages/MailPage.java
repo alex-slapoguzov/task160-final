@@ -22,7 +22,7 @@ public class MailPage extends Page {
     @FindBy(xpath = "//div[@class=\"wO nr l1\"]/textarea")
     private WebElement recipientsField;
 
-    @FindBy(xpath = "//div[@class=\"J-J5-Ji btA\"]/div[@class=\"T-I J-J5-Ji aoO T-I-atl L3 T-I-Zf-aw2\"]")
+    @FindBy(xpath = "//div[@class=\"T-I J-J5-Ji aoO T-I-atl L3\"]")
     private WebElement sendButton;
 
     @FindBy(xpath = "//div[@class=\"aoD az6\"]/input")
