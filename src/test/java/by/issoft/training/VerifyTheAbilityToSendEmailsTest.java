@@ -2,6 +2,7 @@ package by.issoft.training;
 
 import by.issoft.training.dataProvider.DataProviders;
 import by.issoft.training.driver.Driver;
+import by.issoft.training.pages.ChangeAccountPage;
 import by.issoft.training.pages.LoginPage;
 import by.issoft.training.pages.MailPage;
 import org.testng.Assert;
@@ -13,11 +14,13 @@ public class VerifyTheAbilityToSendEmailsTest {
 
 	private LoginPage loginPage;
 	private MailPage mailPage;
+	private ChangeAccountPage changeAccountPage;
 
 	@BeforeMethod
 	public void setUp() {
 		loginPage = new LoginPage();
 		mailPage = new MailPage();
+		changeAccountPage = new ChangeAccountPage();
 		Driver.openHomePage();
 	}
 
@@ -30,7 +33,9 @@ public class VerifyTheAbilityToSendEmailsTest {
 		mailPage.waitUndoLinkDisappears();
 		mailPage.logout();
 		loginPage.isLoginPage();
-		loginPage.loginAfterLogout(emailUser_2, passwordUser_2);
+		loginPage.clickSelectAccount();
+		changeAccountPage.clickChangeAccount();
+		loginPage.login(emailUser_2, passwordUser_2);
 		mailPage.isMailPage();
 		Assert.assertTrue(mailPage.isLetterHasCame(emailUser_1), "Letter hasn't came!");
 	}
