@@ -53,11 +53,8 @@ public class MailPage extends Page {
 		super();
 	}
 
-	public boolean isMailPage() {
-		if (Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(userAccountButton)).isDisplayed()
-				&& Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(gmailTitleNode)).isDisplayed()) {
-			return true;
-		} else return false;
+	public boolean isMailPageLoadInTime() {
+		return isPageLoadInTime(userAccountButton, gmailTitleNode);
 	}
 
 	public LoginPage logout() {
@@ -116,8 +113,8 @@ public class MailPage extends Page {
 
 		for (WebElement element : listWithLettersInInboxFolder) {
 			if (//element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getAttribute("email").equals(gmailEmail)
-					//&&
-			element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getText().equals(subjectText)) {
+				//&&
+					element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getText().equals(subjectText)) {
 				letterWithGivenEmailAndSubjectList.add(element);
 			}
 		}

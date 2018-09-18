@@ -10,37 +10,21 @@ public class LoginPage extends Page {
 	@FindBy(id = "identifierId")
 	private WebElement loginField;
 
-	@FindBy(xpath = "//div[@id=\"identifierNext\"]//span")
+	@FindBy(id = "identifierNext")
 	private WebElement nextButton;
-
-	@FindBy(css = ".aXBtI.I0VJ4d.Wic03c .whsOnd.zHQkBf")
-	private WebElement passwordField;
-
-	@FindBy(id = "profileIdentifier")
-	private WebElement selectAccount;
 
 	public LoginPage() {
 		super();
 	}
 
-	public MailPage login(String email, String password) {
+	public boolean isLoginPageLoadInTime() {
+		return isPageLoadInTime(loginField, nextButton);
+	}
+
+	public PasswordPage typeLogin(String email) {
 		loginField.sendKeys(email);
 		nextButton.click();
-		Waiter.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(passwordField));
-		passwordField.sendKeys(password);
-		nextButton.click();
 
-		return new MailPage();
-	}
-
-	public boolean isLoginPage() {
-		if (Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(passwordField)).isDisplayed()
-				&& Waiter.getWebDriverWait().until(ExpectedConditions.visibilityOf(nextButton)).isDisplayed()) {
-			return true;
-		} else return false;
-	}
-
-	public void clickSelectAccount() {
-		selectAccount.click();
+		return new PasswordPage();
 	}
 }
