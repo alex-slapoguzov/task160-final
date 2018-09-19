@@ -2,6 +2,7 @@ package by.issoft.training.pages;
 
 import by.issoft.training.driver.Driver;
 import by.issoft.training.util.Waiter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -30,20 +31,20 @@ public class Page {
 		Driver.getDriver().navigate().refresh();
 	}
 
-/*	public boolean isLetterInFolder(String mail, List listWithLetter ) {
+	public boolean isLetterInFolder(String mail, List<WebElement> listWithLetter, String subjectText, By emailFieldByLetterInFolder, By subjectFieldByLetterInFolder) {
 		refreshPage();
 		List<WebElement> letterWithGivenEmailAndSubjectList = new ArrayList<WebElement>();
 		String gmailEmail = mail + "@gmail.com";
 
 		for (WebElement element : listWithLetter) {
-			if (element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getAttribute("email").equals(gmailEmail)
-					&& element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getText().equals(subjectText)) {
+			if (element.findElement(emailFieldByLetterInFolder).getAttribute("email").equals(gmailEmail)
+					&& element.findElement(subjectFieldByLetterInFolder).getText().equals(subjectText)) {
 				letterWithGivenEmailAndSubjectList.add(element);
 			}
 		}
 
-		if (letterWithGivenEmailAndSubjectList.size() > 1) {
+		if (letterWithGivenEmailAndSubjectList.size() == 1) {
 			return true;
 		} else return false;
-	}*/
+	}
 }
