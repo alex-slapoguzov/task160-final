@@ -46,6 +46,7 @@ public class VerifyTheAbilityToSendEmailsTest {
 		passwordPage.isPasswordPageLoadInTime();
 		passwordPage.typePassword(passwordUser_2);
 		mailPage.isMailPageLoadInTime();
+
 		Assert.assertTrue(mailPage.isLetterHasCame(emailUser_1), "Letter hasn't came!");
 	}
 

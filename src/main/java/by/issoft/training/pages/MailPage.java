@@ -1,5 +1,6 @@
 package by.issoft.training.pages;
 
+import by.issoft.training.driver.Driver;
 import by.issoft.training.util.Random;
 import by.issoft.training.util.Waiter;
 import org.openqa.selenium.By;
@@ -33,7 +34,7 @@ public class MailPage extends Page {
 	@FindBy(xpath = "//div[@class=\"aoD az6\"]/input")
 	private WebElement subjectField;
 
-	@FindBy(xpath = "//table[@class=\"F cf zt\"]//tr")
+	@FindBy(xpath = "//tr[@class='zA zE']")
 	private List<WebElement> listWithLettersInInboxFolder;
 
 	@FindBy(id = "link_undo")
@@ -42,8 +43,9 @@ public class MailPage extends Page {
 	@FindBy(xpath = "//a[text()='Sent']")
 	private WebElement sentFolderLink;
 
-	private final static By EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//div[@class=\"yW\"]//span[@class=\"yP\"]");
-	private final static By SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//div[@class=\"xS\"]//span[@class=\"bog\"]");
+	private final static By EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//span[@class=\"zF\"]");
+	private final static By SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_INBOX = By.xpath("//span[@class=\"bog\"]/span");
+
 	private final static By EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT = By.xpath("//div[@class=\"yW\"]/span");
 	private final static By SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT = By.xpath("//div[@class=\"xS\"]//span[@class=\"bog\"]");
 	private final static String subject = "Subject+";
@@ -92,6 +94,7 @@ public class MailPage extends Page {
 	}
 
 	public boolean isLetterHasCame(String mail) {
+		refreshPage();
 		List<WebElement> letterWithGivenEmailAndSubjectList = new ArrayList<WebElement>();
 		String gmailEmail = mail + "@gmail.com";
 
@@ -108,13 +111,13 @@ public class MailPage extends Page {
 	}
 
 	public boolean isLetterHasSent(String mail) {
+		refreshPage();
 		List<WebElement> letterWithGivenEmailAndSubjectList = new ArrayList<WebElement>();
 		String gmailEmail = mail + "@gmail.com";
 
 		for (WebElement element : listWithLettersInInboxFolder) {
-			if (//element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getAttribute("email").equals(gmailEmail)
-				//&&
-					element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getText().equals(subjectText)) {
+			if (element.findElement(EMAIL_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getAttribute("email").equals(gmailEmail)
+					&& element.findElement(SUBJECT_FIELD_IN_TABLE_LOCATOR_BY_LETTER_IN_SENT).getText().equals(subjectText)) {
 				letterWithGivenEmailAndSubjectList.add(element);
 			}
 		}
