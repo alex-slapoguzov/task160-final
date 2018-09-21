@@ -1,8 +1,8 @@
 package by.issoft.training.pages;
 
 import by.issoft.training.driver.Driver;
+import by.issoft.training.util.Random;
 import by.issoft.training.util.Waiter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -14,6 +14,7 @@ import java.util.List;
 public class Page {
 
 	protected WebDriver driver;
+	protected static String subjectText = Random.randomizeSubject("Subject+");
 
 	public Page() {
 		driver = Driver.getDriver();
@@ -31,20 +32,14 @@ public class Page {
 		Driver.getDriver().navigate().refresh();
 	}
 
-	public boolean isLetterInFolder(String mail, List<WebElement> listWithLetter, String subjectText, By emailFieldByLetterInFolder, By subjectFieldByLetterInFolder) {
-		refreshPage();
-		List<WebElement> letterWithGivenEmailAndSubjectList = new ArrayList<WebElement>();
-		String gmailEmail = mail + "@gmail.com";
-
-		for (WebElement element : listWithLetter) {
-			if (element.findElement(emailFieldByLetterInFolder).getAttribute("email").equals(gmailEmail)
-					&& element.findElement(subjectFieldByLetterInFolder).getText().equals(subjectText)) {
-				letterWithGivenEmailAndSubjectList.add(element);
+	public boolean isLetterInFolder(List<WebElement> listWithSubjectFieldsInFolder, String textSubject) {
+		List<WebElement> letterWithGivenSubjectList = new ArrayList<WebElement>();
+		for (WebElement element : listWithSubjectFieldsInFolder) {
+			if (element.getText().equals(textSubject)) {
+				letterWithGivenSubjectList.add(element);
 			}
 		}
 
-		if (letterWithGivenEmailAndSubjectList.size() == 1) {
-			return true;
-		} else return false;
+		return letterWithGivenSubjectList.size() == 1;
 	}
 }

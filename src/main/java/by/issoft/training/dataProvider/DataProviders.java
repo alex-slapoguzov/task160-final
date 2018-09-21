@@ -26,4 +26,11 @@ public class DataProviders {
 				{"seleniumtests10", "060788avavav", "seleniumtests30"},
 		};
 	}
+
+	@DataProvider(name = "verifyThatDeletedEmailIsListedInTrashTest")
+	public Object[][] verifyThatDeletedEmailIsListedInTrashTest() {
+		return new Object[][]{
+				{"seleniumtests30", "060788avavav"},
+		};
+	}
 }

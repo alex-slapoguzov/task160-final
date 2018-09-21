@@ -2,10 +2,8 @@ package by.issoft.training;
 
 import by.issoft.training.dataProvider.DataProviders;
 import by.issoft.training.driver.Driver;
-import by.issoft.training.pages.ChangeAccountPage;
-import by.issoft.training.pages.LoginPage;
-import by.issoft.training.pages.MailPage;
-import by.issoft.training.pages.PasswordPage;
+import by.issoft.training.pages.*;
+import by.issoft.training.pages.folders.InboxFolder;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -17,6 +15,8 @@ public class VerifyTheAbilityToSendEmailsTest {
 	private PasswordPage passwordPage;
 	private MailPage mailPage;
 	private ChangeAccountPage changeAccountPage;
+	private NewLetterPage newLetterPage;
+	private InboxFolder inboxFolder;
 
 	@BeforeMethod
 	public void setUp() {
@@ -24,6 +24,8 @@ public class VerifyTheAbilityToSendEmailsTest {
 		passwordPage = new PasswordPage();
 		mailPage = new MailPage();
 		changeAccountPage = new ChangeAccountPage();
+		newLetterPage = new NewLetterPage();
+		inboxFolder = new InboxFolder();
 		Driver.openHomePage();
 	}
 
@@ -34,7 +36,8 @@ public class VerifyTheAbilityToSendEmailsTest {
 		passwordPage.isPasswordPageLoadInTime();
 		passwordPage.typePassword(passwordUser_1);
 		mailPage.isMailPageLoadInTime();
-		mailPage.sendEmailToUser(emailUser_2);
+		mailPage.clickComposeButton();
+		newLetterPage.sendEmailToUser(emailUser_2);
 		mailPage.waitUndoLinkDisappears();
 		mailPage.logout();
 		passwordPage.isPasswordPageLoadInTime();
@@ -46,8 +49,8 @@ public class VerifyTheAbilityToSendEmailsTest {
 		passwordPage.isPasswordPageLoadInTime();
 		passwordPage.typePassword(passwordUser_2);
 		mailPage.isMailPageLoadInTime();
-
-		Assert.assertTrue(mailPage.isLetterHasCame(emailUser_1), "Letter hasn't came!");
+		mailPage.refreshPage();
+		Assert.assertTrue(inboxFolder.isLetterInInboxFolder(), "Letter hasn't came!");
 	}
 
 	@AfterMethod(alwaysRun = true)

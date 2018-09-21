@@ -24,13 +24,13 @@ public class LoginAndLogoutTest {
 		Driver.openHomePage();
 	}
 
-	/*@Test(dataProvider = "loginWithValidCredentials", dataProviderClass = DataProviders.class)
+	@Test(dataProvider = "loginWithValidCredentials", dataProviderClass = DataProviders.class)
 	public void loginToGmailWithValidCredentialsTest(String email, String password) {
 		loginPage.typeLogin(email);
 		passwordPage.isPasswordPageLoadInTime();
 		passwordPage.typePassword(password);
 		Assert.assertTrue(mailPage.isMailPageLoadInTime(), "User with " + email + " and " + password + " wasn't signed in");
-	}*/
+	}
 
 	@Test(dataProvider = "loginWithValidCredentials", dataProviderClass = DataProviders.class)
 	public void logoutFromGmail(String email, String password) {
