@@ -42,4 +42,8 @@ public class Page {
 
 		return letterWithGivenSubjectList.size() == 1;
 	}
+
+	public boolean isElementDisplayed(List<WebElement> list) {
+		return list.size() == 1;
+	}
 }

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>by.issoft.training</groupId>
-	<artifactId>Final task</artifactId>
+	<artifactId>Final_task</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
@@ -73,18 +73,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 </project>
-
-
-
-
-
-
-

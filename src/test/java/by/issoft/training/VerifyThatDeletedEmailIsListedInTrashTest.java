@@ -1,44 +1,42 @@
 package by.issoft.training;
 
-import by.issoft.training.dataProvider.DataProviders;
 import by.issoft.training.driver.Driver;
 import by.issoft.training.pages.LoginPage;
 import by.issoft.training.pages.MailPage;
 import by.issoft.training.pages.OpenLetterPage;
-import by.issoft.training.pages.PasswordPage;
 import by.issoft.training.pages.folders.InboxFolder;
 import by.issoft.training.pages.folders.TrashFolder;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class VerifyThatDeletedEmailIsListedInTrashTest {
 
 	private LoginPage loginPage;
 	private MailPage mailPage;
-	private PasswordPage passwordPage;
-	private OpenLetterPage openLetterPage;
 	private InboxFolder inboxFolder;
+	private OpenLetterPage openLetterPage;
 	private TrashFolder trashFolder;
 
-	@BeforeMethod
-	public void setUp() {
+	private final String LOGIN = "seleniumtests30";
+	private final String PASSWORD = "060788avavav";
+
+	@BeforeClass
+	public void beforeClass() {
 		loginPage = new LoginPage();
-		passwordPage = new PasswordPage();
 		mailPage = new MailPage();
-		openLetterPage = new OpenLetterPage();
 		inboxFolder = new InboxFolder();
+		openLetterPage = new OpenLetterPage();
 		trashFolder = new TrashFolder();
+
 		Driver.openHomePage();
+		loginPage.login(LOGIN, PASSWORD);
+		mailPage.isMailPageLoadInTime();
 	}
 
-	@Test(dataProvider = "verifyThatDeletedEmailIsListedInTrashTest", dataProviderClass = DataProviders.class)
-	public void verifyThatDeletedEmailIsListedInTrashTest(String emailUser_1, String passwordUser_1) {
-		loginPage.typeLogin(emailUser_1);
-		passwordPage.isPasswordPageLoadInTime();
-		passwordPage.typePassword(passwordUser_1);
-		mailPage.isMailPageLoadInTime();
+	@Test()
+	public void verifyThatDeletedEmailIsListedInTrashTest() {
 		inboxFolder.openRandomLetterInInboxFolder();
 		openLetterPage.isOpenLetterPageLoadInTime();
 		String subject = openLetterPage.getSubjectFromLetter();
@@ -47,8 +45,8 @@ public class VerifyThatDeletedEmailIsListedInTrashTest {
 		Assert.assertTrue(trashFolder.isLetterInTrashFolder(subject), "Delete email is not in the trash folder!");
 	}
 
-	@AfterMethod(alwaysRun = true)
-	public void tearDown() {
+	@AfterClass(alwaysRun = true)
+	public void afterClass() {
 		Driver.closeDriver();
 	}
 }

@@ -36,12 +36,12 @@ public class MailPage extends Page {
 		return isPageLoadInTime(userAccountButton, gmailTitleNode);
 	}
 
-	public PasswordPage logout() {
+	public LoginPage logout() {
 		userAccountButton.click();
 		Waiter.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(signOutButton));
 		signOutButton.click();
 
-		return new PasswordPage();
+		return new LoginPage();
 	}
 
 	public NewLetterPage clickComposeButton() {

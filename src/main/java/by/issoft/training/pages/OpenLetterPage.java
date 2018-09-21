@@ -1,9 +1,7 @@
 package by.issoft.training.pages;
 
-import by.issoft.training.util.Waiter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class OpenLetterPage extends Page {
 

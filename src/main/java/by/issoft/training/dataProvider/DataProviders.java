@@ -16,21 +16,14 @@ public class DataProviders {
 	@DataProvider(name = "verifyTheAbilityToSendEmails")
 	public Object[][] verifyTheAbilityToSendEmails() {
 		return new Object[][]{
-				{"seleniumtests10", "060788avavav", "seleniumtests30", "060788avavav"},
+				{"seleniumtests30", "060788avavav"},
 		};
 	}
 
 	@DataProvider(name = "verifyThatSentEmailAppearsInSentMailFolder")
 	public Object[][] verifyThatSentEmailAppearsInSentMailFolder() {
 		return new Object[][]{
-				{"seleniumtests10", "060788avavav", "seleniumtests30"},
-		};
-	}
-
-	@DataProvider(name = "verifyThatDeletedEmailIsListedInTrashTest")
-	public Object[][] verifyThatDeletedEmailIsListedInTrashTest() {
-		return new Object[][]{
-				{"seleniumtests30", "060788avavav"},
+				{"seleniumtests30"},
 		};
 	}
 }
