@@ -11,11 +11,6 @@ import org.testng.ITestResult;
 
 public class GmailListener implements ITestListener {
 
-	@Attachment(value = "Screenshot", type = "image/png")
-	private byte[] captureScreenshot() {
-		return ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-	}
-
 	@Override
 	public void onTestStart(ITestResult result) {
 
@@ -49,5 +44,10 @@ public class GmailListener implements ITestListener {
 	@Override
 	public void onFinish(ITestContext context) {
 
+	}
+
+	@Attachment(value = "Screenshot", type = "image/png")
+	private byte[] captureScreenshot() {
+		return ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
 	}
 }

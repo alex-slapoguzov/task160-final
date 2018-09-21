@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class VerifyEmailsTest {
+public class VerifyEmailsTest extends TestBase {
 
 	private LoginPage loginPage;
 	private MailPage mailPage;

@@ -9,7 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class LogoutTest {
+public class LogoutTest extends TestBase {
 
 	private LoginPage loginPage;
 	private MailPage mailPage;
