@@ -1,16 +1,16 @@
-package by.issoft.training;
+package by.issoft.training.tests;
 
+import by.issoft.training.TestBase;
 import by.issoft.training.dataProvider.DataProviders;
 import by.issoft.training.driver.Driver;
 import by.issoft.training.pages.LoginPage;
 import by.issoft.training.pages.MailPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class LoginTest extends TestBase {
+public class LogoutTest extends TestBase {
 
 	private LoginPage loginPage;
 	private MailPage mailPage;
@@ -22,15 +22,12 @@ public class LoginTest extends TestBase {
 	}
 
 	@Test(dataProvider = "loginWithValidCredentials", dataProviderClass = DataProviders.class)
-	public void loginToGmailWithValidCredentialsTest(String email, String password) {
+	public void logoutFromGmailTest(String email, String password) {
 		Driver.openHomePage();
 		loginPage.login(email, password);
-		Assert.assertTrue(mailPage.isMailPageLoadInTime(), "User with " + email + " and " + password + " wasn't signed in");
-	}
-
-	@AfterMethod()
-	public void afterMethod() {
+		mailPage.isMailPageLoadInTime();
 		mailPage.logout();
+		Assert.assertTrue(loginPage.isLoginPageLoadInTime(), "User with " + email + " and " + password + " wasn't signed out");
 	}
 
 	@AfterClass(alwaysRun = true)

@@ -1,5 +1,6 @@
-package by.issoft.training;
+package by.issoft.training.tests;
 
+import by.issoft.training.TestBase;
 import by.issoft.training.driver.Driver;
 import by.issoft.training.pages.LoginPage;
 import by.issoft.training.pages.MailPage;
