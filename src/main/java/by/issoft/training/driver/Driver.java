@@ -41,4 +41,23 @@ public class Driver {
 		getDriver().quit();
 		driver = null;
 	}
+
+/*	public static void initSystem(String browser, String driverStrategy) {
+		DriverStrategy webDriverStrategy;
+		switch (driverStrategy) {
+			case "grid":
+				webDriverStrategy = new GridDriverStrategy();
+				break;
+			case "local":
+				webDriverStrategy = new LocalDriverStrategy(browser);
+				break;
+			case "saucelabs":
+				webDriverStrategy = new SaucelabsDriverStrategy();
+				break;
+			default:
+				webDriverStrategy = new LocalDriverStrategy(browser);
+				break;
+		}
+	}*/
+
 }
